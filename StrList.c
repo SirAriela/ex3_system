@@ -100,7 +100,7 @@ int StrList_printLen(const StrList *Strlist)
     return countChars;
 }
 
-//
+// remove all aperences of string
 void StrList_remove(StrList *StrList, const char *data)
 {
     Node *temp = StrList->_head;
@@ -126,4 +126,59 @@ void StrList_remove(StrList *StrList, const char *data)
         helper = temp;
         temp = temp->_next;
     }
+}
+
+/*
+ * Checks if two StrLists have the same elements
+ * returns 0 if not and any other number if yes
+ */
+int StrList_isEqual(const StrList *StrList1, const StrList *StrList2)
+{
+    Node *head1 = StrList1->_head;
+    Node *head2 = StrList2->_head;
+
+    if (StrList_size(StrList1) != StrList_size(StrList2))
+        return 0;
+
+    while (head1)
+    {
+        if (strcmp(head1->_data, head2->_data) != 0)
+            return 0;
+        head1 = head1->_next;
+        head2 = head2->_next;
+    }
+    return 1;
+}
+
+void StrList_reverse(StrList *StrList)
+{
+    Node *head = StrList->_head;
+    Node *nextnode = NULL;
+    Node *prevnode = NULL;
+
+    while (head)
+    {
+        nextnode = head->_next; // save next neighbor
+        head->_next = prevnode; // revers currunt node
+        prevnode = head;        // save the current node before going to next node
+        head = nextnode;        // move head to next node
+    }
+}
+
+// check if list is sorted
+int StrList_isSorted(StrList *StrList)
+{
+    Node *head = StrList->_head;
+
+    while (head && head->_next)
+    {
+        //if first is shold be second str return 0
+        if (strcmp(head->_data, head->_next->_data) > 0)
+        {
+            return 0;
+        }
+        head = head->_next;
+    }
+    //all is sorted
+    return 1;
 }
