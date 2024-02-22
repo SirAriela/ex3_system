@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #define MAX_STRING_LENGTH 1024
 void insertStringsIntoList(StrList* list, int numWords) {
-    printf("Enter %d word(s) to insert (separated by space):\n", numWords);
-
      char *input = malloc(sizeof(char) * MAX_STRING_LENGTH); // Allocate memory for input
     
     fgets(input, MAX_STRING_LENGTH, stdin);
@@ -20,38 +18,23 @@ void insertStringsIntoList(StrList* list, int numWords) {
     free(input); // Free dynamically allocated memory
 }
 
-void insertStringAtIndex(StrList* list) {
-    int index;
-    char input[MAX_STRING_LENGTH];
-
-    printf("Enter the index where you want to insert: ");
-    scanf("%d", &index);
-    getchar(); // Consume newline character
-    if (index<StrList_size(list))
-    {
-    printf("Enter the word to insert: ");
-    fgets(input, MAX_STRING_LENGTH, stdin);
-    input[strlen(input) - 1] = '\0'; // Remove newline character
-
-    StrList_insertAt(list, input, index);
-    }
+void insertStringAtIndex(StrList* list, const char* data, int index) {
+    StrList_insertAt(list, data, index);
 }
 
 void printListLength(const StrList* list) {
-    printf("List length: %zu\n", StrList_size(list));}
+    printf(" %zu\n", StrList_size(list));}
 
 void printStringAtIndex(const StrList* list, int index) {
-    printf("String at index %d: ", index);
     if (index<StrList_size(list)){
     StrList_printAt(list, index);
     }
 }
 
 void printTotalCharacters(const StrList* list) {
-    printf("Number of characters in the entire list: %d\n", StrList_printLen(list));
+    printf("%d\n", StrList_printLen(list));
 }
 void printAllList(const StrList* list){
- printf("List contents:\n");
     StrList_print(list);
 }
 void freeAllMemory(const StrList* list){
@@ -99,7 +82,6 @@ int main() {
     getchar(); // Consume newline character
 
     if (choice == 'A' ) {
-        printf("Enter the number of words to insert: ");
         scanf("%d", &numWords);
         getchar(); // Consume newline character
 
