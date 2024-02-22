@@ -122,6 +122,7 @@ void StrList_remove(StrList *StrList, const char *data)
             nextNode = temp->_next;
             free(temp);
             temp = nextNode;
+            StrList->_size--;
         }
         helper = temp;
         temp = temp->_next;

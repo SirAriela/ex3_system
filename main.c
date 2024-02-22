@@ -23,7 +23,7 @@ void insertStringsIntoList(StrList *list, int numWords)
 
 int main()
 {
-    StrList *myList = StrList_alloc();
+    StrList *myList;
 
     int choice;
     int numWords;
@@ -34,6 +34,7 @@ int main()
     {
         if (choice == 1)
         {
+            myList = StrList_alloc();
             scanf("%d", &numWords);
             insertStringsIntoList(myList, numWords);
         }
@@ -134,6 +135,14 @@ int main()
         //---------------------------------------------------------------------
 
         if(choice == 11){
+            index = StrList_size(myList);
+
+            while (index > 0)
+            {
+                StrList_removeAt(myList,0);
+                index--;
+            }
+            
             StrList_free(myList);
         }
 
