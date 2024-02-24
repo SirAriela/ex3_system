@@ -5,7 +5,7 @@
 // the struct of list and the nodes
 typedef struct _node
 {
-    char *_data;
+    const char *_data;
     struct _node *_next;
 } Node;
 
@@ -35,7 +35,8 @@ void StrList_free(StrList *StrList)
 StrList *StrList_alloc()
 {
     StrList *p = (StrList *)malloc(sizeof(StrList));
-    if (p != NULL){
+    if (p != NULL)
+    {
         p->_head = NULL;
         p->_size = 0;
     }
@@ -63,7 +64,6 @@ size_t StrList_size(const StrList *list)
 void StrList_insertLast(StrList *StrList, const char *data)
 {
     Node *newNode = Node_alloc(data, NULL); // Create a new node with the provided data and NULL next pointer
-    
 
     // If the list is empty, make the new node the head of the list
     if (StrList->_head == NULL)
@@ -81,8 +81,6 @@ void StrList_insertLast(StrList *StrList, const char *data)
         // Insert the new node at the end of the list
         temp->_next = newNode;
     }
-    
-    
 
     StrList->_size++; // Increment the size of the list
 }
@@ -95,7 +93,8 @@ char *StrList_firstData(const StrList *StrList)
         return NULL;
     }
     // Otherwise, return the data of the first node
-    return StrList->_head->_data;
+    const char *text = StrList->_head->_data;
+    return (char *)text;
 }
 
 // input new node in location i
@@ -131,8 +130,16 @@ void StrList_print(const StrList *StrList)
 
     while (temp)
     {
-        printf("%s ", temp->_data);
-        temp = temp->_next;
+        if (temp->_next == NULL)
+        {
+            printf("%s", temp->_data);
+            temp = temp->_next;
+        }
+        else
+        {
+            printf("%s ", temp->_data);
+            temp = temp->_next;
+        }
     }
     printf("\n");
 }
@@ -204,11 +211,10 @@ void StrList_remove(StrList *StrList, const char *data)
             if (temp == StrList->_head)
             {
                 StrList->_head = temp->_next;
-                
             }
             else
             {
-                prev->_next = temp->_next; 
+                prev->_next = temp->_next;
             }
             helper = temp;
             temp = temp->_next;
@@ -216,13 +222,12 @@ void StrList_remove(StrList *StrList, const char *data)
             free(helper);
             StrList->_size--;
         }
-        
-        else{
+
+        else
+        {
             prev = temp;
             temp = temp->_next;
         }
-        
-        
     }
 }
 void StrList_removeAt(StrList *StrList, int index)
@@ -256,8 +261,8 @@ void StrList_removeAt(StrList *StrList, int index)
         {
             prev->_next = current->_next;
         }
-        free(current);        // Free memory allocated for the node
-        StrList->_size--;     // Decrement the size of the list
+        free(current);    // Free memory allocated for the node
+        StrList->_size--; // Decrement the size of the list
     }
 }
 
@@ -345,7 +350,7 @@ void StrList_sort(StrList *StrList)
             // Compare adjacent strings and swap if they are in the wrong order
             if (strcmp(ptr1->_data, ptr1->_next->_data) > 0)
             {
-                char *temp = ptr1->_data;
+                const char *temp = ptr1->_data;
                 ptr1->_data = ptr1->_next->_data;
                 ptr1->_next->_data = temp;
                 swapped = 1;

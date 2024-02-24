@@ -154,7 +154,7 @@ int main()
         if (choice == 13)
         {
             index = StrList_isSorted(myList);
-            if(index == 1? printf("%s\n", "True"):printf("%s\n", "False"));     
+            if(index == 1? printf("%s\n", "true"):printf("%s\n", "false"));     
         }
 
         //-----------------------------------------------------------------------
