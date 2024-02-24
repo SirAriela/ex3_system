@@ -18,12 +18,12 @@ void insertStringsIntoList(StrList *list, int numWords)
         token = strtok(NULL, " ");
         numWords--;
     }
-    free(input); // Free dynamically allocated memory
+    // free(input); // Free dynamically allocated memory
 }
 
 int main()
 {
-    StrList *myList;
+    StrList *myList = StrList_alloc();
 
     int choice;
     int numWords;
@@ -34,7 +34,6 @@ int main()
     {
         if (choice == 1)
         {
-            myList = StrList_alloc();
             scanf("%d", &numWords);
             insertStringsIntoList(myList, numWords);
         }
@@ -45,14 +44,13 @@ int main()
 
             if (text == NULL)
             {
-                prints("coulndt allocate memory for function 2");
+                printf("coulndt allocate memory for function 2");
             }
             else
             {
                 scanf("%d", &index);
                 scanf("%s", text);
                 StrList_insertAt(myList, text, index);
-                free(text);
             }
         }
         //  ------------------------------------------------------------------------
@@ -66,7 +64,8 @@ int main()
 
         if (choice == 4)
         {
-            StrList_size(myList);
+            int size = StrList_size(myList);
+            printf("%d\n", size);
         }
 
         //---------------------------------------------------------
@@ -81,7 +80,8 @@ int main()
 
         if (choice == 6)
         {
-            StrList_printLen(myList);
+            int numberOfChars = StrList_printLen(myList);
+            printf("%d\n", numberOfChars);
         }
 
         // ----------------------------------------------------------
@@ -93,14 +93,16 @@ int main()
             if (text != NULL)
             {
                 scanf("%s", text);
-                StrList_count(myList, text);
+                int times = StrList_count(myList, text);
+                printf("%d\n", times);
                 free(text);
             }
         }
 
         //-----------------------------------------------------------------
 
-        if(choice == 8){
+        if (choice == 8)
+        {
             char *text = (char *)malloc(100 * sizeof(char));
 
             if (text != NULL)
@@ -113,52 +115,46 @@ int main()
 
         //-------------------------------------------------------------------
 
-        if(choice == 9)
+        if (choice == 9)
         {
-             char *text = (char *)malloc(100 * sizeof(char));
-
-            if (text != NULL)
-            {
-                scanf("%s", text);
-                StrList_removeAt(myList, text);
-                free(text);
-            }
+            scanf("%d", &index);
+            StrList_removeAt(myList, index);
         }
 
         //---------------------------------------------------------------------
 
-        if(choice ==10)
+        if (choice == 10)
         {
             StrList_reverse(myList);
         }
 
         //---------------------------------------------------------------------
 
-        if(choice == 11){
+        if (choice == 11)
+        {
             index = StrList_size(myList);
 
             while (index > 0)
             {
-                StrList_removeAt(myList,0);
+                StrList_removeAt(myList, 0);
                 index--;
             }
-            
-            StrList_free(myList);
+
         }
 
         //----------------------------------------------------------------------
 
-        if(choice == 12)
+        if (choice == 12)
         {
             StrList_sort(myList);
         }
 
         //-----------------------------------------------------------------------
 
-        if( choice == 13)
+        if (choice == 13)
         {
             index = StrList_isSorted(myList);
-            printf("%d", index);
+            if(index == 1? printf("%s\n", "True"):printf("%s\n", "False"));     
         }
 
         //-----------------------------------------------------------------------
